@@ -119,7 +119,21 @@ public abstract class Produto {
      */
     static Produto criarDoTexto(String linha){
         Produto novoProduto = null;
-        //TO DO
+        DateTimeFormatter formatoData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String[] atributos = linha.split(";");
+        int tipo = Integer.parseInt(atributos[0]);
+        String descricao = atributos[1];
+        double precoCusto = Double.parseDouble(atributos[2]);
+        double margemLucro = Double.parseDouble(atributos[3]);
+        LocalDate dataValidade = null;
+        if (tipo == 1){
+            novoProduto = new ProdutoNaoPerecivel(descricao, precoCusto, margemLucro);
+        } else if (tipo == 2){
+            dataValidade = LocalDate.parse(atributos[4], formatoData);
+            novoProduto = new ProdutoPerecivel(descricao, precoCusto, margemLucro, dataValidade);
+        } else {
+            throw new IllegalArgumentException("Tipo de produto inválido");
+        }
         return novoProduto;
     }
 
