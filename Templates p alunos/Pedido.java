@@ -122,6 +122,7 @@ public class Pedido {
 				novoPedido.incluirProduto(produto);
 			}
 		}
+		
         return novoPedido;
     }
 }
